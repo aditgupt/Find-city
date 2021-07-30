@@ -56,8 +56,23 @@
     -->
 
     <script>
+         let latt = document.getElementById('latt');
+        let loon = document.getElementById('loon');
+        let bttn = document.getElementById('bttn');
+        bttn.addEventListener('click', function () {
+            let h = document.getElementById('h');
+            h.innerText = ``;
+            let l = latt.value;
+            let o = loon.value;
+            whereApi(`${l}, ${o}`);
+            // whereApi(18.5204, 73.8567);
+        
+
+        })
+
         function whereApi(lat, long) {
 
+            
             fetch(`https://geocode.xyz/${lat},${long}?geoit=json`)
                 .then(function (response) {
                     // if(!response.ok)throw new Error ('prpglm with cosding');
@@ -66,7 +81,17 @@
                 .then(function (da) {
                     let a = da.city;
                     let b = da.country;
-                    if (a == undefined || b == undefined) {
+                    let l = latt.value;
+                    let o = loon.value;
+                    if (l == '') {
+                        let h = document.getElementById('h');
+                        h.innerText = `Please Enter Latitude`;
+                    }
+                    else if (o == '') {
+                        let h = document.getElementById('h');
+                        h.innerText = `Please Enter Longitude`;
+                    }
+                    else if (a == undefined || b == undefined) {
                         let h = document.getElementById('h');
                         h.innerText = `Please Click Again!`;
                     }
@@ -93,17 +118,6 @@
                 })
 
         };
-
-        let latt = document.getElementById('latt');
-        let loon = document.getElementById('loon');
-        let bttn = document.getElementById('bttn');
-        bttn.addEventListener('click', function () {
-            let l = latt.value;
-            let o = loon.value;
-            whereApi(`${l}, ${o}`);
-            // whereApi(18.5204, 73.8567);
-
-        })
     </script>
 </body>
 
